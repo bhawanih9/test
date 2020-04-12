@@ -8,7 +8,7 @@
 <html lang="en">
     <head>
         <meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
         <?= $this->headTitle('Sonim Test')->setSeparator(' - ')->setAutoEscape(false) ?>
 
         <?= $this->headMeta()
@@ -23,8 +23,11 @@
         ?>
 
         <!-- Scripts -->
-        <?= $this->headScript() ?>
-		
+        <?= $this->headScript()
+                ->appendFile($this->basePath('js/bootstrap.min.js'))
+                 ->appendFile($this->basePath('js/jquery-3.4.1.min.js'))
+        ?>
+        
     </head>
     <body>
         <nav class="navbar navbar-expand-md navbar-dark mb-4" role="navigation">
@@ -53,8 +56,6 @@
                 <p>&copy; <?= date('Y') ?> by Bhawani Shankar. All rights reserved.</p>
             </footer>
         </div>
-        <?= $this->inlineScript()
-            ->prependFile($this->basePath('js/bootstrap.min.js'))
-            ->prependFile($this->basePath('js/jquery-3.4.1.min.js')) ?>
+        
     </body>
 </html>

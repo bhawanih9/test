@@ -11,76 +11,76 @@ class LoginForm extends Form
         parent::__construct();
 
         $this->add(
-            array(
+            [
                     'name' => 'u_name',
-                    'options' => array(
+                    'options' => [
                         'label' => 'Username',
-                        'label_attributes' => array(
+                        'label_attributes' => [
                             'class' => 'col-sm-3 control-label'
-                        )
-                    ),
-                    'attributes' => array(
+                        ]
+                    ],
+                    'attributes' => [
                         'class' => 'form-control',
                         'id' => 'u_name',
                         'name' => 'u_name',
                         'placeholder' => 'Username',
-                    ),
+                    ],
                     'type' => 'text',
-                )
+                ]
         );
 
         $this->add(
-            array(
+            [
                     'name' => 'upw',
-                    'options' => array(
+                    'options' => [
                         'label' => 'Password',
-                        'label_attributes' => array(
+                        'label_attributes' => [
                             'class' => 'col-sm-3 control-label'
-                        )
-                    ),
-                    'attributes' => array(
+                        ]
+                    ],
+                    'attributes' => [
                         'class' => 'form-control',
                         'id' => 'upw',
                         'name' => 'upw',
                         'placeholder' => 'Password',
-                    ),
+                    ],
                     'type' => 'password',
-                )
+                ]
         );
 
         $this->add(
-            array(
+            [
                     'type' => 'Button',
                     'name' => 'submit',
-                    'options' => array(
+                    'options' => [
                         'label' => 'Login',
-                        'label_options' => array(
+                        'label_options' => [
                             'disable_html_escape' => true,
-                        )
-                    ),
-                    'attributes' => array(
+                        ]
+                    ],
+                    'attributes' => [
                         'type' => 'submit',
                         'class' => 'btn btn-success'
-                    )
-                )
+                    ]
+                ]
         );
 
 
         $this->add(
-            array(
+            [
                     'type' => 'Button',
                     'name' => 'reset',
-                    'options' => array(
+                    'options' => [
                         'label' => 'Clear',
-                        'label_options' => array(
+                        'label_options' => [
                             'disable_html_escape' => true,
-                        )
-                    ),
-                    'attributes' => array(
+                        ]
+                    ],
+                    'attributes' => [
                         'type' => 'reset',
                         'class' => 'btn btn-default'
-                    )
-                )
+                    ]
+                ]
         );
     }
 }

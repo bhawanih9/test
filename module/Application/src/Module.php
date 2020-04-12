@@ -9,6 +9,7 @@
 declare(strict_types=1);
 
 namespace Application;
+
 use Laminas\Mvc\ModuleRouteListener;
 use Laminas\Mvc\MvcEvent;
 use Laminas\Session\SessionManager;
@@ -21,14 +22,14 @@ class Module
     {
         return include __DIR__ . '/../config/module.config.php';
     }
-	public function bootstrapSession($e)
+    public function bootstrapSession($e)
     {
         $session = $e->getApplication()
             ->getServiceManager()
             ->get('Laminas\Session\SessionManager');
         $session->start();
         $container = new Container('initialized');
-        if (!isset($container->init)) {
+        if (! isset($container->init)) {
             $serviceManager = $e->getApplication()->getServiceManager();
             $request        = $serviceManager->get('Request');
             $session->regenerateId(true);
@@ -37,7 +38,7 @@ class Module
             //$container->httpUserAgent = $request->getServer()->get('HTTP_USER_AGENT');
 
             $config = $serviceManager->get('Config');
-            if (!isset($config['session'])) {
+            if (! isset($config['session'])) {
                 return;
             }
             $sessionConfig = $config['session'];
@@ -46,32 +47,31 @@ class Module
 
                 foreach ($sessionConfig['validators'] as $validator) {
                     switch ($validator) {
-                    case 'Laminas\Session\Validator\HttpUserAgent':
-                        $validator = new $validator($container->httpUserAgent);
-                        break;
-                    case 'Laminas\Session\Validator\RemoteAddr':
-                        $validator  = new $validator($container->remoteAddr);
-                        break;
-                    default:
-                        $validator = new $validator();
+                        case 'Laminas\Session\Validator\HttpUserAgent':
+                            $validator = new $validator($container->httpUserAgent);
+                            break;
+                        case 'Laminas\Session\Validator\RemoteAddr':
+                            $validator  = new $validator($container->remoteAddr);
+                            break;
+                        default:
+                            $validator = new $validator();
                     }
 
-                    $chain->attach('session.validate', array($validator, 'isValid'));
+                    $chain->attach('session.validate', [$validator, 'isValid']);
                 }
             }
         }
     }
-	public function getViewHelperConfig()
+    public function getViewHelperConfig()
     {
-        return array(
-        'factories' => array(
+        return [
+        'factories' => [
             'AppHelper' => function ($sm) {
                 $locator = $sm->getServiceLocator();
                 return new \Application\View\Helper\ApplicationHelper($locator->get('Application\Model\Helper\ApplicationHelper'));
             },
 
-        ),
-        );
+        ],
+        ];
     }
-
 }

@@ -18,7 +18,7 @@ return [
     'Laminas\Filter',
     'Laminas\Router',
     'Laminas\Validator',
-	'Laminas\InputFilter',
+    'Laminas\InputFilter',
     'Laminas\Db',
     'Application',
 ];

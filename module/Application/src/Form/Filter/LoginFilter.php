@@ -1,4 +1,5 @@
 <?php
+
 namespace Application\Form\Filter;
 
 use Laminas\InputFilter\InputFilter;
@@ -9,75 +10,75 @@ class LoginFilter extends InputFilter
     {
         $isEmpty = \Laminas\Validator\NotEmpty::IS_EMPTY;
         $invalidEmail = \Laminas\Validator\EmailAddress::INVALID_FORMAT;
-        
+
         $this->add(
-            array(
+            [
             'name' => 'u_name',
             'required' => true,
-            'filters' => array(
-                array(
+            'filters' => [
+                [
                     'name' => 'StripTags'
-                ),
-                array(
+                ],
+                [
                     'name' => 'StringTrim'
-                )
-            ),
-            'validators' => array(
-                array(
+                ]
+            ],
+            'validators' => [
+                [
                     'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
+                    'options' => [
+                        'messages' => [
                             $isEmpty => 'Username can not be empty.'
-                        )
-                    ),
+                        ]
+                    ],
                     'break_chain_on_failure' => true
-                ),
-                array(
+                ],
+                [
                     'name' => 'Regex',
-                    'options' => array(
+                    'options' => [
                         'pattern' => '/[A-Za-z0-9_~\-!@#\$%\^&\*\(\)]+$/',
-                            'messages' => array(
+                            'messages' => [
                             \Zend\Validator\Regex::NOT_MATCH => "Invalid characters in Username"
-                        )
-                    ),
-                )
-            )
-            )
+                        ]
+                    ],
+                ]
+            ]
+            ]
         );
-        
+
         $this->add(
-            array(
+            [
             'name' => 'upw',
             'required' => true,
-            'filters' => array(
-                array(
+            'filters' => [
+                [
                     'name' => 'StripTags'
-                ),
-                array(
+                ],
+                [
                     'name' => 'StringTrim'
-                )
-            ),
-            'validators' => array(
-                array(
+                ]
+            ],
+            'validators' => [
+                [
                     'name' => 'NotEmpty',
-                    'options' => array(
-                        'messages' => array(
+                    'options' => [
+                        'messages' => [
                             $isEmpty => 'Password can not be empty.'
-                        )
-                    ),
+                        ]
+                    ],
                     'break_chain_on_failure' => true
-                ),
-                array(
+                ],
+                [
                     'name' => 'Regex',
-                    'options' => array(
+                    'options' => [
                         'pattern' => '/[A-Za-z0-9_~\-!@#\$%\^&\*\(\)]+$/',
-                            'messages' => array(
+                            'messages' => [
                             \Zend\Validator\Regex::NOT_MATCH => "Invalid characters in Password"
-                        )
-                    ),
-                )
-            )
-            )
+                        ]
+                    ],
+                ]
+            ]
+            ]
         );
     }
 }

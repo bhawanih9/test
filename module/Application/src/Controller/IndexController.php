@@ -23,7 +23,7 @@ use Laminas\Session\Validator\HttpUserAgent;
 class IndexController extends AbstractActionController
 {
     protected $_adminMapper;
-	public function indexAction()
+    public function indexAction()
     {
         session_start();
         if (isset($_SESSION['u_id'])) {
@@ -35,11 +35,11 @@ class IndexController extends AbstractActionController
             $form->setAttribute('class', 'form-signin form-horizontal');
             $form->setAttribute('style', 'background:white;border: 1px solid #ccc;');
             $viewModel = new ViewModel();
-            $viewModel->setVariables(array('form' => $form));
+            $viewModel->setVariables(['form' => $form]);
             return $viewModel;
         }
     }
-	public function logoutAction()
+    public function logoutAction()
     {
         session_start();
         if (isset($_SESSION['u_id'])) {
@@ -53,9 +53,9 @@ class IndexController extends AbstractActionController
     {
         $request = $this->getRequest();
         if ($request->isPost()) {
-            $validator = new Regex(array('pattern' => '/[A-Za-z0-9_~\-!@#\$%\^&\*\(\)]+$/'));
+            $validator = new Regex(['pattern' => '/[A-Za-z0-9_~\-!@#\$%\^&\*\(\)]+$/']);
             $post = $this->getRequest()->getPost()->toArray();
-            $resultsArr=array();
+            $resultsArr = [];
             $form = new LoginForm('loginForm');
             $form->setInputFilter(new LoginFilter());
             $form->setData($request->getPost());
@@ -71,14 +71,12 @@ class IndexController extends AbstractActionController
         }
         exit;
     }
-	public function getAdminService()
+    public function getAdminService()
     {
-        if (!$this->_adminMapper) {
+        if (! $this->_adminMapper) {
             $sm = $this->getServiceLocator();
             $this->_adminMapper = $sm->get('Application\Model\AdminMapper');
         }
         return $this->_adminMapper;
     }
-
-
 }
