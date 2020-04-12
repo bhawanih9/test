@@ -27,6 +27,26 @@ return [
                     ],
                 ],
             ],
+            'logincheck' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/logincheck',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'logincheck',
+                    ],
+                ],
+            ],
+            'logout' => [
+                'type' => Literal::class,
+                'options' => [
+                    'route'    => '/logout',
+                    'defaults' => [
+                        'controller' => Controller\IndexController::class,
+                        'action'     => 'logout',
+                    ],
+                ],
+            ],
             'application' => [
                 'type'    => Segment::class,
                 'options' => [
@@ -34,6 +54,21 @@ return [
                     'defaults' => [
                         'controller' => Controller\IndexController::class,
                         'action'     => 'index',
+                    ],
+                ],
+                'may_terminate' => true,
+                'child_routes' => [
+                    'default' => [
+                        'type'    => 'Segment',
+                        'options' => [
+                            'route'    => '/[:controller[/:action]]',
+                            'constraints' => [
+                                'controller' => '[a-zA-Z][a-zA-Z0-9_-]*',
+                                'action'     => '[a-zA-Z][a-zA-Z0-9_-]*',
+                            ],
+                            'defaults' => [
+                            ],
+                        ],
                     ],
                 ],
             ],

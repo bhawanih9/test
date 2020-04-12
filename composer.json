@@ -1,6 +1,6 @@
 {
     "name": "laminas/laminas-mvc-skeleton",
-    "description": "Laminas MVC Skeleton Application",
+    "description": "Test MVC File Upload Application for Solimo",
     "type": "project",
     "license": "BSD-3-Clause",
     "keywords": [
@@ -15,7 +15,10 @@
         "laminas/laminas-development-mode": "^3.2",
         "laminas/laminas-mvc": "^3.1.1",
         "mezzio/mezzio-authentication": "^1.1",
-        "laminas/laminas-db": "^2.11"
+        "laminas/laminas-db": "^2.11",
+        "laminas/laminas-form": "^2.14",
+        "laminas/laminas-view": "^2.11",
+        "laminas/laminas-i18n": "^2.10"
     },
     "autoload": {
         "psr-4": {

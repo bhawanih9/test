@@ -1,65 +1,82 @@
-<?php
-
-/**
- * @var Laminas\View\Renderer\PhpRenderer $this
- */
-?>
-<div class="jumbotron">
-    <h1 class="display-4">Welcome to<br>Laminas MVC Skeleton Application</h1>
-
-    <p>
-        Congratulations! You have successfully installed the
-        <a href="https://github.com/laminas/laminas-mvc-skeleton" target="_blank">Laminas MVC Skeleton</a>.
-        This skeleton can serve as a simple starting point for you to begin
-        building your application on Laminas MVC.
-    </p>
-
-    <hr class="my-4">
-
-    <a class="btn btn-primary btn-lg" href="https://github.com/laminas" target="_blank">Check Laminas on GitHub &raquo;</a>
-</div>
-
-<div class="card-deck">
-    <div class="card">
-        <h2 class="card-header">Follow Development</h2>
-        <div class="card-body">
-            <p>
-                Laminas Project is under active development. If you are
-                interested in following the development, you can check
-                <a href="https://getlaminas.org/blog/">Laminas dev blog</a>,
-                and <a href="https://github.com/issues?utf8=%E2%9C%93&amp;q=is:issue+org:laminas">Laminas issue tracker</a>
-                (link requires a GitHub account). This is a great resource
-                for staying up to date with the latest developments!
-            </p>
-
-            <a class="btn btn-primary" href="https://getlaminas.org/" target="_blank">Laminas Project Portal &raquo;</a>
-        </div>
+    <div class="container">
+        
+       <?php  echo $this->form()->openTag($form); ?>
+            <div class="form-group">
+                <?php  echo $this->formLabel($form->get('u_name')); ?>
+                <div class="col-sm-9">
+                <?php  echo $this->formElement($form->get('u_name')); ?>
+                </div>
+                <?php  echo $this->formElementErrors($form->get('u_name')) ?>
+            </div>
+            <div class="form-group">
+                <?php  echo $this->formLabel($form->get('upw')); ?>
+                <div class="col-sm-9">
+                    <?php  echo $this->formElement($form->get('upw')); ?>
+                    <div><span id="status">&nbsp;</span></div>
+                </div>
+            </div>
+            <div class="form-group" style="margin-top:0">
+                <label class="col-sm-3"></label>
+                <div class="col-sm-9">   
+                    <?php  echo $this->formElement($form->get('submit')); ?>
+                    <?php  echo $this->formElement($form->get('reset')); ?>
+                </div>
+            </div>
+        <?php echo $this->form()->closeTag();?>
     </div>
 
-    <div class="card">
-        <h2 class="card-header">Discover Modules</h2>
-        <div class="card-body">
-            <p>
-                Laminas MVC is a modular application.
-                You can find multiple compatible modules on packagist.
-            </p>
+<script type="text/javascript">
+    $(document).ready(function()
+    {
+        $('.user').hide();
+        $('.sidebar').hide();
+        $('.topnav').hide();
+        $("#upw").val('');
+        //            $('.navbar').hide();
+        $("#logincheck").submit(function() 
+        { 
+            var u_name = $("#u_name").val();
+            var password = $("#upw").val();
+            if(u_name.length ===0)
+            {
+                $("#status").html('<font color="#cc0000">Username Can not be blank</font>');
+            }
+            else if(password.length===0)
+            {
+                $("#status").html('<font color="#cc0000">Password can not be blank.</font>');
+            }
+            else
+            {
+                $("#status").html('&nbsp;Processing in.');
+                 var data = {
+                    u_name : u_name,
+                    upw : password,
+                    action : 'weblogin'
+                }
+                var url = "logincheck";
+                $.post(url, data,function(respJson){
+                    var resp =JSON.parse(respJson);
+                    var responseCode = resp.statusCode;
+                    var errMessage = resp.result;
+                    if(responseCode == 200){
+                         <?php if(isset($_SESSION['ref'])){?>
+                             window.location.replace('<?php echo $_SESSION['ref'];?>');
+                         <?php }else{ ?>
+                            window.location.replace("tracker");
+                         <?php } ?>
+                    }
+                    else if(resp.u_name){
+                        $("#status").html('<font color="#cc0000">'+(resp.u_name.regexNotMatch)+'</font>');
+                    }else if(resp.upw){
+                        $("#status").html('<font color="#cc0000">'+(resp.upw.regexNotMatch)+'</font>');
+                    }
+                    else{
+                        $("#status").html('<font color="#cc0000">Enter Correct Username & Password</font>');
+                    }
+                });
+            }
+            return false;
+        });
+    });
+</script>
 
-            <a class="btn btn-primary" href="https://packagist.org/?tags=module~zf2~zendframework~zend%20framework~zend%20framework%202~zf3~zf~zend~laminas" target="_blank">Explore Laminas Modules &raquo;</a>
-        </div>
-    </div>
-
-    <div class="card">
-        <h2 class="card-header">Help &amp; Support</h2>
-        <div class="card-body">
-            <p>
-                If you need any help or support while developing with Laminas,
-                you may reach us via <a href="https://laminas.dev/chat">chat</a> or
-                <a href="https://discourse.laminas.dev">forum</a>.
-                We'd love to hear any questions or feedback you may have
-                regarding any release.
-            </p>
-
-            <a class="btn btn-primary" href="https://laminas.dev/chat" target="_blank">Ping us on chat &raquo;</a>
-        </div>
-    </div>
-</div>
